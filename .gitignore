@@ -148,3 +148,4 @@ db/
 # FastAPI
 __pycache__/
 *.pyc
+.vercel
