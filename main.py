@@ -1,18 +1,15 @@
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
 
-@app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the FastAPI application!"}
 
-@app.post("/reverse", response_class=HTMLResponse)
-async def reverse_name(request: Request, name: str = Form(...)):
+@app.get("/reverse")
+async def reverse_name(name: str):
     reversed_name = name[::-1]
-    return templates.TemplateResponse("index.html", {"request": request, "reversed_name": reversed_name})
+    return {"reversed_name": reversed_name}
 
 if __name__ == "__main__":
     import uvicorn
